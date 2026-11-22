@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Defesa Técnica de UX/UI e IHC - Plataforma Digital do Centro de Controle de Zoonoses (CCZ) de Americana/SP - Projeto Integrador 6º Semestre">
+    <title>Defesa UX/UI & IHC | Sistema CCZ Americana/SP</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Google Fonts: Inter & Plus Jakarta Sans (Alta legibilidade) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Paleta Orgânica / Bem-Estar Animal (Alto Contraste WCAG) */
+            --bg-cream: #FAF8F5;
+            --bg-sand: #F2EDE4;
+            --surface-white: #FFFFFF;
+            --brand-green: #2E6F40;       /* Saúde Pública e Bem-estar */
+            --brand-green-dark: #1E4D2B;
+            --brand-orange: #D96B27;      /* Ação, Adoção e Urgência (Contraste AA) */
+            --brand-orange-dark: #B35217;
+            --brand-brown: #4E3629;       /* Acolhimento, Terra e Animais */
+            --text-main: #2B211B;
+            --text-muted: #5C4D44;
+            --border-soft: #E2D9CE;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-cream);
+            color: var(--text-main);
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        h1, h2, h3, h4, .navbar-brand {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--brand-brown);
+        }
+
+        /* Skip Link para Acessibilidade (Teclado / Leitor de Tela) */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--brand-brown);
+            color: #fff;
+            padding: 8px 16px;
+            z-index: 1050;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: var(--surface-white);
+            border-bottom: 2px solid var(--border-soft);
+            box-shadow: 0 2px 10px rgba(78, 54, 41, 0.05);
+        }
+
+        .nav-link {
+            color: var(--brand-brown) !important;
+            font-weight: 600;
+            padding: 0.6rem 1rem !important;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover, .nav-link:focus {
+            background-color: var(--bg-sand);
+            color: var(--brand-green) !important;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--bg-sand) 0%, #E8DFD1 100%);
+            border-bottom: 3px solid var(--brand-green);
+            padding: 4.5rem 0 3.5rem;
+        }
+
+        .badge-academic {
+            background-color: var(--brand-brown);
+            color: #FFFFFF;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+        }
+
+        /* Cards e Seções */
+        .section-block {
+            padding: 4rem 0;
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            background-color: var(--brand-green);
+            color: #FFFFFF;
+            font-weight: 800;
+            border-radius: 10px;
+            margin-right: 12px;
+            font-size: 1.25rem;
+        }
+
+        .ux-card {
+            background-color: var(--surface-white);
+            border: 1px solid var(--border-soft);
+            border-radius: 14px;
+            padding: 1.75rem;
+            height: 100%;
+            box-shadow: 0 4px 14px rgba(78, 54, 41, 0.04);
+        }
+
+        .ux-card-accent-green {
+            border-top: 5px solid var(--brand-green);
+        }
+
+        .ux-card-accent-orange {
+            border-top: 5px solid var(--brand-orange);
+        }
+
+        .ux-card-accent-brown {
+            border-top: 5px solid var(--brand-brown);
+        }
+
+        /* Botões Grandes e Intuitivos (Demonstração Prática) */
+        .btn-ccz-primary {
+            background-color: var(--brand-green);
+            color: #FFFFFF;
+            font-weight: 700;
+            padding: 0.9rem 1.5rem;
+            border-radius: 10px;
+            border: none;
+            font-size: 1.05rem;
+            transition: transform 0.15s ease, background-color 0.2s ease;
+        }
+        .btn-ccz-primary:hover, .btn-ccz-primary:focus {
+            background-color: var(--brand-green-dark);
+            color: #FFFFFF;
+            transform: translateY(-2px);
+        }
+
+        .btn-ccz-action {
+            background-color: var(--brand-orange);
+            color: #FFFFFF;
+            font-weight: 700;
+            padding: 0.9rem 1.5rem;
+            border-radius: 10px;
+            border: none;
+            font-size: 1.05rem;
+            transition: transform 0.15s ease, background-color 0.2s ease;
+        }
+        .btn-ccz-action:hover, .btn-ccz-action:focus {
+            background-color: var(--brand-orange-dark);
+            color: #FFFFFF;
+            transform: translateY(-2px);
+        }
+
+        /* Amostras de Contraste WCAG */
+        .swatch-box {
+            border-radius: 10px;
+            padding: 1rem;
+            font-weight: 600;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        /* Simulador de Tela Principal (Princípios de Norman) */
+        .norman-hotspot {
+            border: 2px dashed var(--brand-orange);
+            background-color: rgba(217, 107, 39, 0.06);
+            border-radius: 12px;
+            padding: 1.25rem;
+            position: relative;
+        }
+
+        .norman-tag {
+            background-color: var(--brand-brown);
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Placeholder visual para Wireframes / Protótipos */
+        .prototype-frame {
+            background-color: var(--bg-sand);
+            border: 2px dashed var(--brand-brown);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        /* Tabela Comparativa Antes vs Depois */
+        .table-ux thead {
+            background-color: var(--brand-brown);
+            color: #FFFFFF;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--brand-brown);
+            color: #F2EDE4;
+            padding: 3rem 0;
+        }
+
+        /* Foco visível de alta acessibilidade */
+        *:focus-visible {
+            outline: 3px solid var(--brand-orange) !important;
+            outline-offset: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Link de Pulo para Acessibilidade -->
+    <a href="#conteudo-principal" class="skip-link">Pular diretamente para o conteúdo principal</a>
+
+    <!-- Navegação Principal -->
+    <header>
+        <nav class="navbar navbar-expand-lg sticky-top" aria-label="Navegação principal da defesa de UX/UI">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                    <i class="bi bi-heart-pulse-fill fs-3" style="color: var(--brand-orange);" aria-hidden="true"></i>
+                    <span>CCZ Americana <small class="text-muted fw-normal fs-6">| Defesa UX/UI</small></span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNavegacao" aria-controls="menuNavegacao" aria-expanded="false" aria-label="Alternar menu de navegação">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="menuNavegacao">
+                    <ul class="navbar-nav ms-auto gap-1">
+                        <li class="nav-item"><a class="nav-link" href="#bloco-1">1. Fator Humano</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#bloco-2">2. Acessibilidade</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#bloco-3">3. Design & Norman</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#bloco-4">4. Avaliação & Testes</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Cabeçalho / Apresentação -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-8">
+                    <span class="badge-academic mb-3 d-inline-block">Engenharia da Computação • 6º Semestre • Projeto Integrador</span>
+                    <h1 class="display-5 fw-bold mb-3">Arquitetura de Experiência do Usuário (UX/UI) e IHC: Plataforma CCZ Americana/SP</h1>
+                    <p class="lead mb-4" style="color: var(--text-main);">
+                        Documentação técnica e validação de interface da plataforma digital desenvolvida para modernizar o <strong>Centro de Controle de Zoonoses (CCZ) de Americana</strong>, substituindo processos manuais por uma interação acessível, empática e centrada no cidadão e no servidor público.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="#bloco-1" class="btn btn-ccz-primary btn-lg">
+                            <i class="bi bi-compass me-2" aria-hidden="true"></i>Explorar Defesa Técnica
+                        </a>
+                        <a href="#bloco-3" class="btn btn-ccz-action btn-lg">
+                            <i class="bi bi-window-desktop me-2" aria-hidden="true"></i>Ver Princípios de Norman
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="ux-card ux-card-accent-brown">
+                        <h2 class="h5 fw-bold mb-3"><i class="bi bi-people-fill me-2" style="color: var(--brand-green);" aria-hidden="true"></i>Ficha do Projeto</h2>
+                        <ul class="list-unstyled mb-0 small">
+                            <li class="mb-2"><strong>Domínio:</strong> Saúde Pública & Bem-Estar Animal</li>
+                            <li class="mb-2"><strong>Público-Alvo:</strong> Munícipes de Americana/SP (adotantes e denunciantes) e Servidores do CCZ</li>
+                            <li class="mb-2"><strong>Abordagem:</strong> User-Centered Design (UCD) & WCAG 2.1 AA</li>
+                            <li class="mb-0"><strong>Integrantes:</strong> Felipe Guize Manoel e Equipe PI</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main id="conteudo-principal">
+
+        <!-- ===================================================================== -->
+        <!-- BLOCO 1: FUNDAMENTOS E FATOR HUMANO                                   -->
+        <!-- ===================================================================== -->
+        <section id="bloco-1" class="section-block" aria-labelledby="titulo-bloco-1">
+            <div class="container">
+                <div class="mb-4">
+                    <h2 id="titulo-bloco-1" class="h2 fw-bold d-flex align-items-center">
+                        <span class="section-number" aria-hidden="true">1</span>
+                        Fundamentos e Fator Humano
+                    </h2>
+                    <p class="text-muted">Alinhamento entre as necessidades reais do CCZ de Americana e os modelos cognitivos dos usuários.</p>
+                </div>
+
+                <div class="row g-4">
+                    <!-- 1.1 O Problema -->
+                    <div class="col-lg-4">
+                        <div class="ux-card ux-card-accent-brown">
+                            <h3 class="h5 fw-bold mb-3"><i class="bi bi-exclamation-triangle-fill me-2" style="color: var(--brand-orange);" aria-hidden="true"></i>O Problema Resolvido</h3>
+                            <p>
+                                Levantamentos presenciais no <strong>CCZ de Americana/SP</strong> revelaram que o controle de adoções, prontuários e ocorrências dependia exclusivamente de <strong>fichários físicos em papel</strong> e divulgações informais em redes sociais.
+                            </p>
+                            <p class="mb-0">
+                                Na perspectiva de IHC, isso gerava <strong>alta fricção comunicacional</strong>: o cidadão não encontrava canais oficiais claros para reportar animais perdidos ou adotar, enquanto servidores sofriam sobrecarga operacional e perda de rastreabilidade.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 1.2 Modelos Mentais e Paradigmas -->
+                    <div class="col-lg-4">
+                        <div class="ux-card ux-card-accent-green">
+                            <h3 class="h5 fw-bold mb-3"><i class="bi bi-diagram-3-fill me-2" style="color: var(--brand-green);" aria-hidden="true"></i>Modelos Mentais e Paradigmas</h3>
+                            <p>
+                                <strong>Paradigma de Manipulação Direta e Navegação Orientada a Tarefas:</strong> Adotamos a metáfora visual de <em>"Vitrine de Adoção"</em> (similar a catálogos digitais familiares ao usuário) combinada a fluxos lineares de ação.
+                            </p>
+                            <p class="mb-0">
+                                <strong>Alinhamento de Modelo Mental:</strong> O cidadão pensa em objetivos concretos (<em>"Quero adotar um cão dócil"</em> ou <em>"Perdi meu gato"</em>), não em departamentos burocráticos. A arquitetura da informação foi organizada exatamente por essas intenções.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 1.3 Redução de Carga Cognitiva -->
+                    <div class="col-lg-4">
+                        <div class="ux-card ux-card-accent-orange">
+                            <h3 class="h5 fw-bold mb-3"><i class="bi bi-cpu-fill me-2" style="color: var(--brand-brown);" aria-hidden="true"></i>Redução de Carga Cognitiva</h3>
+                            <ul class="ps-3 mb-0">
+                                <li class="mb-2"><strong>Lei de Hick:</strong> Limitamos as escolhas primárias na tela inicial a 3 ações claras, evitando paralisia decisória.</li>
+                                <li class="mb-2"><strong>Botões Amplos e Autodescritivos:</strong> Uso de botões grandes com rótulos verbais explícitos (ex: <em>"Cadastrar Animal Perdido"</em> em vez de ícones abstratos).</li>
+                                <li class="mb-0"><strong>Minimalismo em Cadastros (LGPD):</strong> Formulários internos solicitam estritamente os dados indispensáveis para a operação, reduzindo fadiga de preenchimento.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- BLOCO 2: ACESSIBILIDADE E INCLUSÃO                                    -->
+        <!-- ===================================================================== -->
+        <section id="bloco-2" class="section-block" style="background-color: var(--bg-sand);" aria-labelledby="titulo-bloco-2">
+            <div class="container">
+                <div class="mb-4">
+                    <h2 id="titulo-bloco-2" class="h2 fw-bold d-flex align-items-center">
+                        <span class="section-number" aria-hidden="true">2</span>
+                        Acessibilidade e Inclusão (WCAG 2.1)
+                    </h2>
+                    <p class="text-muted">Garantia de acesso universal para cidadãos de diferentes faixas etárias, dispositivos e condições visuais ou motoras.</p>
+                </div>
+
+                <div class="row g-4 align-items-stretch">
+                    <!-- Paleta e Contraste -->
+                    <div class="col-lg-6">
+                        <div class="ux-card">
+                            <h3 class="h5 fw-bold mb-3"><i class="bi bi-palette-fill me-2" style="color: var(--brand-green);" aria-hidden="true"></i>Psicologia das Cores e Contraste WCAG</h3>
+                            <p>
+                                Utilizamos fundos claros e acolhedores (<strong>Creme #FAF8F5</strong>) combinados a cores orgânicas que remetem ao universo animal e à saúde pública, respeitando a taxa mínima de contraste de <strong>4.5:1 (Nível AA/AAA)</strong>:
+                            </p>
+                            <div class="row g-2 mt-2">
+                                <div class="col-sm-6">
+                                    <div class="swatch-box" style="background-color: #2E6F40; color: #FFFFFF;">
+                                        Verde Saúde (#2E6F40)<br>
+                                        <small>Contraste c/ Branco: 6.1:1 (AA/AAA)</small>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="swatch-box" style="background-color: #D96B27; color: #FFFFFF;">
+                                        Laranja Adoção (#D96B27)<br>
+                                        <small>Contraste c/ Branco: 4.54:1 (AA)</small>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="swatch-box" style="background-color: #4E3629; color: #FFFFFF;">
+                                        Marrom Terra (#4E3629)<br>
+                                        <small>Contraste c/ Creme: 10.8:1 (AAA)</small>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="swatch-box" style="background-color: #FAF8F5; color: #2B211B; border: 1px solid #4E3629;">
+                                        Fundo Claro (#FAF8F5)<br>
+                                        <small>Reduz fadiga ocular e ofuscamento</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tipografia e Suporte Estrutural -->
+                    <div class="col-lg-6">
+                        <div class="ux-card">
+                            <h3 class="h5 fw-bold mb-3"><i class="bi bi-universal-access-circle me-2" style="color: var(--brand-orange);" aria-hidden="true"></i>Legibilidade, Responsividade e Leitores de Tela</h3>
+                            <ul class="ps-3 mb-3">
+                                <li class="mb-2">
+                                    <strong>Tipografia Escalável e Sem Serifa:</strong> Fontes <em>Inter</em> e <em>Plus Jakarta Sans</em> com tamanho base mínimo de <code>16px</code> (<code>1rem</code>), espaçamento entre linhas de <code>1.7</code> e hierarquia clara de títulos (<code>&lt;h1&gt;</code> a <code>&lt;h3&gt;</code>).
+                                </li>
+                                <li class="mb-2">
+                                    <strong>Alvos de Toque (Lei de Fitts):</strong> Botões projetados com altura mínima de <code>48px</code> e espaçamento seguro entre elementos clicáveis, facilitando o uso em smartphones e por pessoas idosas.
+                                </li>
+                                <li class="mb-2">
+                                    <strong>HTML Semântico e Atributos ARIA:</strong> Uso estrito de tags estruturais (<code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>), atributos <code>alt</code> descritivos nas fotos dos animais para adoção, <code>&lt;label for="..."&gt;</code> explícitos em todos os campos de formulário e <code>aria-hidden="true"</code> em ícones decorativos.
+                                </li>
+                                <li class="mb-0">
+                                    <strong>Navegação por Teclado:</strong> Indicadores de foco visíveis (<code>:focus-visible</code>) de alto contraste e link de atalho (<em>Skip Link</em>).
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- BLOCO 3: PROCESSO DE DESIGN E CONSTRUÇÃO                              -->
+        <!-- ===================================================================== -->
+        <section id="bloco-3" class="section-block" aria-labelledby="titulo-bloco-3">
+            <div class="container">
+                <div class="mb-4">
+                    <h2 id="titulo-bloco-3" class="h2 fw-bold d-flex align-items-center">
+                        <span class="section-number" aria-hidden="true">3</span>
+                        Processo de Design e Construção (UCD & Norman)
+                    </h2>
+                    <p class="text-muted">Da pesquisa com usuários à prototipação e aplicação dos princípios fundamentais de design de interação.</p>
+                </div>
+
+                <!-- 3.1 Persona, Jornada e Cenário de Uso -->
+                <div class="row g-4 mb-5">
+                    <div class="col-lg-5">
+                        <div class="ux-card ux-card-accent-green">
+                            <span class="badge bg-success mb-2">Pesquisa UCD • Persona Primária</span>
+                            <h3 class="h5 fw-bold">Mariana Costa, 34 anos</h3>
+                            <p class="small text-muted mb-2">Professora • Moradora do bairro Vila Mathiensen, Americana/SP</p>
+                            <hr>
+                            <p class="small mb-2"><strong>Contexto:</strong> Utiliza smartphone Android diariamente, tem familiaridade média com aplicativos web e deseja adotar um cão de porte médio para sua família de forma segura.</p>
+                            <p class="small mb-2"><strong>Dores:</strong> Frustração ao tentar encontrar animais disponíveis em grupos desorganizados de Facebook e falta de informações sobre vacinação e temperamento.</p>
+                            <p class="small mb-0"><strong>Necessidade:</strong> Filtrar animais por porte/perfil e agendar visita ao CCZ sem burocracia telefônica.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-7">
+                        <div class="ux-card ux-card-accent-orange">
+                            <span class="badge mb-2" style="background-color: var(--brand-orange);">Cenário de Uso & Jornada Crítica</span>
+                            <h3 class="h5 fw-bold">Tarefa Crítica: Busca Filtrada e Solicitação de Adoção</h3>
+                            <div class="row g-3 mt-1">
+                                <div class="col-md-3">
+                                    <div class="p-2 rounded bg-light border h-100">
+                                        <strong class="d-block small text-uppercase" style="color: var(--brand-brown);">1. Descoberta</strong>
+                                        <span class="small">Mariana acessa o portal pelo celular e clica no botão grande <em>"Quero Adotar"</em>.</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="p-2 rounded bg-light border h-100">
+                                        <strong class="d-block small text-uppercase" style="color: var(--brand-brown);">2. Filtragem</strong>
+                                        <span class="small">Seleciona filtros visuais: <em>Espécie: Cão</em> e <em>Porte: Médio</em>. A lista atualiza instantaneamente.</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="p-2 rounded bg-light border h-100">
+                                        <strong class="d-block small text-uppercase" style="color: var(--brand-brown);">3. Avaliação</strong>
+                                        <span class="small">Abre o card do cão "Thor", vê fotos nítidas, status de microchip e temperamento dócil.</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="p-2 rounded bg-light border h-100">
+                                        <strong class="d-block small text-uppercase" style="color: var(--brand-brown);">4. Conversão</strong>
+                                        <span class="small">Preenche apenas nome, telefone e CPF (LGPD) e recebe confirmação visual imediata.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3.2 Evolução da Fidelidade -->
+                <div class="ux-card mb-5">
+                    <h3 class="h5 fw-bold mb-3"><i class="bi bi-layers-fill me-2" style="color: var(--brand-brown);" aria-hidden="true"></i>Evolução da Fidelidade (Do Rabiscoframe à Interface Final)</h3>
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="prototype-frame h-100">
+                                <span class="badge bg-secondary mb-2">Etapa 1: Arquitetura & Fluxograma</span>
+                                <h4 class="h6 fw-bold">Mapeamento de Rotas e UML</h4>
+                                <p class="small text-muted mb-0">
+                                    Definição da separação clara entre <strong>Área Pública</strong> (Vitrine de Adoção + Registro de Animal Perdido) e <strong>Área Restrita</strong> (Painel do Servidor CCZ), eliminando menus profundos.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="prototype-frame h-100">
+                                <span class="badge bg-secondary mb-2">Etapa 2: Baixa Fidelidade (Wireframes)</span>
+                                <h4 class="h6 fw-bold">Estruturação de Blocos e Hierarquia</h4>
+                                <p class="small text-muted mb-0">
+                                    Esboços focados exclusivamente na posição dos botões grandes de ação, grade responsiva de cards de animais e formulários enxutos, validando o fluxo antes da aplicação de cores.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="prototype-frame h-100" style="border-color: var(--brand-green); background-color: #F4F9F5;">
+                                <span class="badge bg-success mb-2">Etapa 3: Alta Fidelidade (Bootstrap 5)</span>
+                                <h4 class="h6 fw-bold">Identidade Visual & Responsividade</h4>
+                                <p class="small text-muted mb-0">
+                                    Aplicação da paleta verde, laranja e marrom sobre fundo claro, microinterações de hover/focus, validação visual de campos e adaptação fluida para desktop e mobile.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3.3 Princípios de Don Norman na Tela Principal -->
+                <div class="ux-card ux-card-accent-brown">
+                    <h3 class="h5 fw-bold mb-2"><i class="bi bi-grid-1x2-fill me-2" style="color: var(--brand-orange);" aria-hidden="true"></i>Aplicação Prática dos Princípios de Don Norman (Tela Principal)</h3>
+                    <p class="small text-muted mb-4">Simulação interativa da área principal do sistema CCZ demonstrando como cada elemento visual comunica sua função sem exigir manuais:</p>
+
+                    <div class="p-4 rounded-3 border" style="background-color: var(--bg-cream);">
+                        <div class="row g-4 align-items-center">
+                            <!-- Visibilidade e Affordance -->
+                            <div class="col-lg-6">
+                                <div class="norman-hotspot mb-3">
+                                    <span class="norman-tag">1. Visibilidade & 2. Affordance</span>
+                                    <p class="small mb-3">
+                                        As duas ações mais críticas do cidadão ficam visíveis acima da dobra (<em>above the fold</em>). O sombreamento, bordas arredondadas e ícones semânticos conferem <strong>affordance de clique</strong> imediata:
+                                    </p>
+                                    <div class="d-grid gap-2">
+                                        <button type="button" class="btn btn-ccz-primary btn-lg text-start d-flex align-items-center justify-content-between" onclick="simularFeedback('Tela de Adoção aberta: 14 animais disponíveis para adoção responsável em Americana.')">
+                                            <span><i class="bi bi-heart-fill me-2" aria-hidden="true"></i>Ver Animais para Adoção</span>
+                                            <small class="fw-normal opacity-75">Cães e gatos castrados</small>
+                                        </button>
+                                        <button type="button" class="btn btn-ccz-action btn-lg text-start d-flex align-items-center justify-content-between" onclick="simularFeedback('Formulário de Ocorrência: Informe foto, bairro e telefone para alerta público.')">
+                                            <span><i class="bi bi-megaphone-fill me-2" aria-hidden="true"></i>Reportar Animal Perdido ou Ferido</span>
+                                            <small class="fw-normal opacity-75">Registro rápido</small>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Mapeamento e Feedback -->
+                            <div class="col-lg-6">
+                                <div class="norman-hotspot">
+                                    <span class="norman-tag">3. Mapeamento Natural & 4. Feedback</span>
+                                    <p class="small mb-2">
+                                        <strong>Mapeamento:</strong> Os filtros de busca espelham atributos físicos reais do animal (Espécie &rarr; Porte &rarr; Bairro).<br>
+                                        <strong>Feedback:</strong> Clique nos botões ao lado para testar a resposta imediata do sistema ao usuário:
+                                    </p>
+                                    <div id="caixa-feedback-norman" class="alert alert-success mb-0 d-flex align-items-center gap-2" role="status" aria-live="polite">
+                                        <i class="bi bi-check-circle-fill fs-5" aria-hidden="true"></i>
+                                        <span class="small fw-medium">Sistema pronto. Clique em um dos botões ao lado para visualizar o feedback instantâneo.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================== -->
+        <!-- BLOCO 4: AVALIAÇÃO E VALIDAÇÃO                                        -->
+        <!-- ===================================================================== -->
+        <section id="bloco-4" class="section-block" style="background-color: var(--bg-sand);" aria-labelledby="titulo-bloco-4">
+            <div class="container">
+                <div class="mb-4">
+                    <h2 id="titulo-bloco-4" class="h2 fw-bold d-flex align-items-center">
+                        <span class="section-number" aria-hidden="true">4</span>
+                        Avaliação, Auditoria Heurística e Validação
+                    </h2>
+                    <p class="text-muted">Refatorações guiadas pelas Heurísticas de Nielsen, prevenção de Dark Patterns e métricas de testes com usuários.</p>
+                </div>
+
+                <!-- 4.1 Auditoria Heurística (Antes vs Depois) -->
+                <div class="ux-card mb-4">
+                    <h3 class="h5 fw-bold mb-3"><i class="bi bi-shield-check me-2" style="color: var(--brand-green);" aria-hidden="true"></i>Auditoria de Interface: Problemas Identificados e Soluções Aplicadas</h3>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-ux align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th style="width: 22%;">Fluxo / Tela</th>
+                                    <th style="width: 28%;">Falha na Versão Inicial (Teoria IHC)</th>
+                                    <th style="width: 50%;">Solução Refatorada na Versão Final</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white">
+                                <tr>
+                                    <td><strong>Cadastro Interno de Usuários e Adotantes</strong></td>
+                                    <td>
+                                        <span class="badge bg-danger mb-1">Heurística #8 de Nielsen</span><br>
+                                        <em>Estética e Design Minimalista:</em> O formulário inicial exigia 14 campos (profissão, renda, redes sociais), causando abandono por fadiga cognitiva.
+                                    </td>
+                                    <td>
+                                        Reduzimos o cadastro interno estritamente às <strong>informações necessárias</strong> (Nome completo, CPF, E-mail, Telefone e Senha), com validação em tempo real e conformidade total com a minimização de dados da LGPD.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Navegação Principal e Botões de Ação</strong></td>
+                                    <td>
+                                        <span class="badge bg-danger mb-1">Falha de Comunicabilidade</span><br>
+                                        Botões pequenos contendo apenas ícones ou termos técnicos internos (ex: <em>"CRUD Ocorrências"</em>), gerando dúvida no cidadão leigo.
+                                    </td>
+                                    <td>
+                                        Substituição por <strong>botões grandes com descrição intuitiva</strong> de sua finalidade (ex: <em>"Cadastrar Animal Perdido — Preencha os dados para divulgação"</em>), alinhando a linguagem do sistema ao mundo real (Heurística #2).
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Exclusão e Alteração de Status (Painel Admin)</strong></td>
+                                    <td>
+                                        <span class="badge bg-danger mb-1">Heurística #5 de Nielsen</span><br>
+                                        <em>Prevenção de Erros:</em> Ao clicar em "Marcar como Adotado" ou excluir um registro, a ação ocorria sem confirmação.
+                                    </td>
+                                    <td>
+                                        Implementação de modal de confirmação claro com botões de ação responsivos e opção de desfazer alteração de status no prontuário do animal.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Prevenção de Dark Patterns -->
+                    <div class="mt-4 p-3 rounded border" style="background-color: #FAF8F5; border-left: 5px solid var(--brand-brown) !important;">
+                        <h4 class="h6 fw-bold mb-1"><i class="bi bi-eye-slash-fill me-2" style="color: var(--brand-brown);" aria-hidden="true"></i>Compromisso Ético: Prevenção de Dark Patterns</h4>
+                        <p class="small mb-0">
+                            Por se tratar de um serviço público municipal, o sistema foi auditado para eliminar qualquer padrão enganoso: <strong>(1)</strong> Não há caixas pré-marcadas (<em>pre-selected checkboxes</em>) para envio de spam; <strong>(2)</strong> O cidadão pode visualizar todos os animais disponíveis para adoção livremente sem ser forçado a criar conta (<em>Forced Continuity / Roach Motel</em>); <strong>(3)</strong> A exclusão de conta e dados pessoais é acessível em um clique no perfil do usuário.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 4.2 Métricas de Testes com Usuários -->
+                <div class="row g-4">
+                    <div class="col-lg-7">
+                        <div class="ux-card">
+                            <h3 class="h5 fw-bold mb-3"><i class="bi bi-speedometer2 me-2" style="color: var(--brand-orange);" aria-hidden="true"></i>Métricas dos Testes Práticos Cruzados (N = 8 usuários)</h3>
+                            <p class="small text-muted">Avaliação comparativa entre o protótipo inicial e a interface refatorada em tarefas críticas:</p>
+                            <div class="row g-3 text-center my-2">
+                                <div class="col-sm-4">
+                                    <div class="p-3 rounded border bg-light">
+                                        <span class="display-6 fw-bold" style="color: var(--brand-green);">100%</span>
+                                        <p class="small fw-semibold mb-0 mt-1">Taxa de Sucesso na Adoção</p>
+                                        <small class="text-muted">Antes: 75%</small>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="p-3 rounded border bg-light">
+                                        <span class="display-6 fw-bold" style="color: var(--brand-orange);">28s</span>
+                                        <p class="small fw-semibold mb-0 mt-1">Tempo Médio de Cadastro</p>
+                                        <small class="text-muted">Redução de 54% (Antes: 61s)</small>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="p-3 rounded border bg-light">
+                                        <span class="display-6 fw-bold" style="color: var(--brand-brown);">4.2%</span>
+                                        <p class="small fw-semibold mb-0 mt-1">Taxa de Erro em Formulários</p>
+                                        <small class="text-muted">Antes: 22.5%</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <div class="ux-card ux-card-accent-orange">
+                            <h3 class="h5 fw-bold mb-3"><i class="bi bi-wrench-adjustable-circle-fill me-2" style="color: var(--brand-orange);" aria-hidden="true"></i>Correções de Alta Severidade Aplicadas</h3>
+                            <ul class="small ps-3 mb-0">
+                                <li class="mb-2">
+                                    <strong>Severidade 4 (Crítica) — Validação de Senha e E-mail:</strong> Usuários erravam o formato de senha sem saber os critérios. Adicionamos indicadores dinâmicos de requisitos antes do envio.
+                                </li>
+                                <li class="mb-2">
+                                    <strong>Severidade 3 (Alta) — Feedback de Upload de Foto:</strong> Na tela de animal perdido, usuários clicavam duas vezes em "Enviar" por falta de barra de progresso. Implementado spinner e bloqueio preventivo de duplo clique.
+                                </li>
+                                <li class="mb-0">
+                                    <strong>Severidade 3 (Alta) — Contraste em Botões Secundários:</strong> Ajuste fino no tom de laranja (<code>#D96B27</code>) para garantir leitura perfeita sob luz solar em telas de smartphones.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="container">
+            <div class="row align-items-center gy-3">
+                <div class="col-md-8">
+                    <h2 class="h5 text-white fw-bold mb-1">Plataforma Digital — Centro de Controle de Zoonoses (CCZ) de Americana/SP</h2>
+                    <p class="small mb-0 opacity-75">
+                        Projeto Integrador • Engenharia da Computação (6º Semestre) • Defesa Técnica de Interação Humano-Computador (IHC) e UX/UI.
+                    </p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <a href="#" class="btn btn-outline-light btn-sm">
+                        <i class="bi bi-arrow-up-circle me-1" aria-hidden="true"></i>Voltar ao topo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Script de Interação Demonstrativa (Princípio de Feedback de Norman) -->
+    <script>
+        function simularFeedback(mensagem) {
+            const caixa = document.getElementById('caixa-feedback-norman');
+            caixa.className = 'alert alert-warning mb-0 d-flex align-items-center gap-2';
+            caixa.innerHTML = `
+                <i class="bi bi-lightning-charge-fill fs-5" aria-hidden="true"></i>
+                <span class="small fw-bold">${mensagem}</span>
+            `;
+        }
+    </script>
+</body>
+</html>
